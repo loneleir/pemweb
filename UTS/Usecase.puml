@@ -1,0 +1,18 @@
+@startuml
+actor Admin
+actor "Kepala Sekolah" as Kepsek
+
+rectangle "Sistem Informasi Guru & Kinerja" {
+    Admin --> (Login)
+    Kepsek --> (Login)
+
+    Admin --> (Kelola Data Guru)
+    Admin --> (Kelola Riwayat Kinerja)
+    Admin --> (Kelola Role & Akses)
+
+    Kepsek --> (Lihat Data Guru)
+    Kepsek --> (Update Nilai Kinerja)
+    Kepsek --> (Tambah Catatan Kinerja)
+}
+
+@enduml

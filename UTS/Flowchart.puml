@@ -1,0 +1,60 @@
+@startuml
+start
+:User buka halaman login;
+:Input email & password;
+:Klik Login;
+
+if (Autentikasi berhasil?) then (ya)
+    if (Role = Admin?) then (ya)
+        :Redirect ke Dashboard Admin;
+
+        :Admin pilih menu;
+        partition "Kelola Data Guru" {
+            if (Pilih Tambah/Edit/Hapus Data Guru?) then (ya)
+                if (Tambah?) then (ya)
+                    :Isi Form Data Guru;
+                    :Validasi NIP, Email, dll;
+                    :Simpan Data Guru ke DB;
+                elseif (Edit?) then (ya)
+                    :Ambil Data Lama;
+                    :Edit Form;
+                    :Validasi;
+                    :Update DB;
+                elseif (Hapus?) then (ya)
+                    :Konfirmasi Hapus;
+                    :Hapus Data dari DB;
+                endif
+            endif
+        }
+        partition "Kelola Riwayat Kinerja" {
+            if (Pilih Tambah/Edit/Hapus Riwayat Kinerja?) then (ya)
+                if (Tambah?) then (ya)
+                    :Isi Form Riwayat Kinerja;
+                    :Validasi nilai 0-100, format tahun ajaran;
+                    :Simpan ke DB;
+                elseif (Edit?) then (ya)
+                    :Ambil Data Lama;
+                    :Edit nilai & catatan;
+                    :Validasi;
+                    :Update DB;
+                elseif (Hapus?) then (ya)
+                    :Konfirmasi Hapus;
+                    :Hapus Data dari DB;
+                endif
+            endif
+        }
+    else
+        :Redirect ke Dashboard Kepala Sekolah;
+        :Kepsek lihat data guru (read only);
+
+        if (Pilih Update Nilai Kinerja?) then (ya)
+            :Input nilai & catatan;
+            :Validasi nilai 0-100;
+            :Update DB;
+        endif
+    endif
+else
+    :Tampilkan pesan error login;
+endif
+stop
+@enduml
