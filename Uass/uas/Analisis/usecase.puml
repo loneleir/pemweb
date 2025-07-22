@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #E9F7EF
+  BorderColor #27AE60
+}
+
+actor "Pembeli" as buyer
+actor "Admin" as admin
+actor "Sistem API" as api
+
+rectangle "Hijau Market System" {
+  
+  usecase "Melihat Katalog Produk" as UC1
+  usecase "Memesan Sayuran (via Form/WA)" as UC2
+  usecase "Mengirim Pesan/Feedback" as UC3
+  
+  usecase "Mengelola Data Produk\n(CRUD)" as UC4
+  usecase "Memproses Pesanan" as UC5
+  
+  usecase "Mengambil Data Produk\n(API Swagger)" as UC6
+}
+
+' Relasi Pembeli
+buyer --> UC1
+buyer --> UC2
+buyer --> UC3
+
+' Relasi Admin
+admin --> UC4
+admin --> UC5
+
+' Relasi Sistem API
+api --> UC6
+UC6 --> UC1
+
+@enduml
